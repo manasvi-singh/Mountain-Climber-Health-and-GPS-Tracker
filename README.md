@@ -62,7 +62,7 @@ Here's how to use the Rock-Climber-Health-and-GPS-Tracker system:
 To contribute to the repository, open an issue or a pull request.
 
 ## License
-The  Mountain-Climber-Health-and-GPS-Tracker project is licensed under the MIT License. Feel free to modify and distribute the project as per the terms of the license.
+The  Rock-Climber-Health-and-GPS-Tracker project is licensed under the MIT License. Feel free to modify and distribute the project as per the terms of the license.
 
 ## Acknowledgements
 We would like to acknowledge the contributions of all the individuals and open-source projects that have helped make this project possible. Thank you for your support and dedication to improving the safety of mountain climbers.
