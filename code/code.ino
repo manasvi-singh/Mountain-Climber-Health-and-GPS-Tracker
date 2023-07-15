@@ -27,14 +27,13 @@ int d,f=0;
 #include "OakOLED.h"
 OakOLED oled;
 
-#define BLYNK_TEMPLATE_ID "TMPLvALjhhFZ"
-#define BLYNK_DEVICE_NAME "Rock Climber2"
-#define BLYNK_AUTH_TOKEN "d7C4uNf1B0aZ-wAZu2kh1xHx2X-PYCeH"
+#define BLYNK_TEMPLATE_ID "xxxxxxxxxxx" //Enter your blynk template id
+#define BLYNK_DEVICE_NAME "xxxxxxxxxxx"//Enter your device name
+#define BLYNK_AUTH_TOKEN "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 char auth[] = BLYNK_AUTH_TOKEN;             // Authentication Token Sent by Blynk
-char ssid[] = "Redmi9";        //WiFi SSID
-char pass[] = "coffee39";        //WiFi Password
+char ssid[] = "";        //Enter your WiFi SSID
+char pass[] = "";        //Enter your wifi Password
 WidgetLED led(V0);
-// Connections : SCL PIN - D1 , SDA PIN - D2 , INT PIN - D0
 PulseOximeter pox;
 String temp_str,heart,spo,lng_str,lat_str;
 float BPM, SpO2,temp;
@@ -60,7 +59,7 @@ void setup()
   Serial.println(ssid);
   WiFi.begin(ssid, pass);
     //pinMode(16, OUTPUT);
-    Blynk.begin(auth, ssid, pass,"blr1.blynk.cloud");
+    Blynk.begin(auth, ssid, pass,"blr1.blynk.cloud"); //we use blr1.blynk.cloud to connect to the banglore server this is a new blynk update
  oled.begin();
   oled.clearDisplay();
   oled.setTextSize(1);
@@ -104,6 +103,7 @@ void loop()
     SpO2 = pox.getSpO2();
     heart=String(BPM);
     spo=String(SpO2);
+
    if (millis() - tsLastReport > REPORTING_PERIOD_MS)
     {
         Serial.print("Heart rate:");
@@ -118,59 +118,163 @@ void loop()
     }
     sensor.update();
 
-  if (millis() - tsLastReading > REPORTING_PERIOD_MS) {
+  if (millis() - tsLastReading > REPORTING_PERIOD_MS)
+ {
     sensor.startTemperatureSampling();
-    if (sensor.isTemperatureReady()) {
+    if (sensor.isTemperatureReady())
+ {
       float temp = sensor.retrieveTemperature();
       Blynk.virtualWrite(V3, temp);
       temp_str=String(temp);
-      Serial.print("Temperature = ");
+    
+  Serial.print("Temperature = ");
+
       Serial.print(temp);
+
       Serial.print("*C | ");
+
       Serial.print((temp * 9.0) / 5.0 + 32.0);//print the temperature in Fahrenheit
+
       Serial.println("*F");
     }
+
     tsLastReading = millis();
+
   }
+
   while (ss.available() > 0){ //while data is available
+
     if (gps.encode(ss.read())) //read gps data
     {
+
       if (gps.location.isValid()) //check whether gps location is valid
       {
         latitude = gps.location.lat();
+
         lat_str = String(latitude , 6); // latitude location is stored in a string
+
         longitude = gps.location.lng();
+
         lng_str = String(longitude , 6); //longitude location is stored in a string
         }
     }
   }
+
   //OLED
-  oled.clearDisplay();oled.setTextSize(1);oled.setTextColor(1);
-      oled.setCursor(0, 0);oled.print("Heart BPM: ");oled.println(heart);
-      oled.setCursor(0,16);oled.print("Spo2: ");oled.println(spo);
-      oled.setCursor(0,32);oled.print("Temp: ");oled.println(temp_str);
+  oled.clearDisplay();
+
+oled.setTextSize(1);
+
+oled.setTextColor(1);
+
+      oled.setCursor(0, 0);
+
+oled.print("Heart BPM: ");
+
+oled.println(heart);
+
+      oled.setCursor(0,16);
+
+oled.print("Spo2: ");
+
+oled.println(spo);
+
+      oled.setCursor(0,32);
+oled.print("Temp: ");
+
+oled.println(temp_str);
+
       //oled.setCursor(0,64);oled.print("lat: ");oled.println(lat_str);
+
       //oled.setCursor(32,32);oled.print("long: ");oled.println(lng_str);
+
       oled.display();
+
 if(d==1 && f==0)
     led.off();
+
 else if(d==0 && f<1)
   {
     f=1;
     led.on();
-    Serial.println("BUTTON PRESSED");
+    
+Serial.println("BUTTON PRESSED");
+
     oled.clearDisplay();
+
     oled.setTextSize(2);
+
     oled.setTextColor(1);
+
     oled.setCursor(0, 0);oled.print("SOS SIGNAL SENT!");
+
     oled.display();
     delay(2000);
+  }
+  //WEBSITE LOCAL IP
+  WiFiClient client = server.available(); // Check if a client has connected
+  if (!client)
+  {
+    return;
+  }
+
+  // Prepare the response
+
+  String s = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n <!DOCTYPE html><html><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible'";
+ 
+ s+="content='IE=edge'><title>Page Title</title><link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">";
+
+  s+="<meta name='viewport' content='width=device-width, initial-scale=1'><style>body{background:linear-gradient(180deg,#4c3c44ee,#a15958);";
   
-  
+s+="color: #dfebef;width:100%;height:100vh; text-align: center;}#t3{display:inline;font-size: 80px;}";
+
+  s+=".lat,.long,.oxygenlvl{font-size: 60px;}";
+
+  s+=".unli{margin: 50px 180px;text-align: left;}</style></head><body>";
+
+  s+="<div ><h1 id=\"t3\">Rock climber health and GPS tracker &nbsp</h1><img SRC=\"";       //enter your url logo
+
+  s+="\"style=\"width:121px;height: 121px\"></div>";
+
+  s+="<div class=\"unli\"><ul style=\"list-style-type:none;\"><li style=\"font-
+size: 60px;\"><i style=\"font-size: 90px;\" class='fa fa-thermometer'>";
+
+  s+=" "+temp_str+ " ℃";
+
+  s+="</i></li><li><i class=\"fa fa-heartbeat\" style=\"font-size: 90px;\" aria-hidden=\"true\">";
+
+  s+=" "+(heart)+" BPM";
+
+  s+="</i></li><li class=\"oxygenlvl\">SpO<sub>2</sub>: ";
+
+  s+=(spo);
+
+  s+="  </li><li class=\"lat\">Latitude: "; 
+ 
+ s += lat_str;
+
+  s+="</li><li class=\"long\">Longitude: ";
+
+  s += lng_str+"</li>";   
+
+  s+="</ul></div></body>";
+
+  client.print(s);
+
+  client.print("</html>");
+// all the values are send to the webpage
+ 
+delay(100);
 }
+
+
 void configureMax30100() {
-  sensor.setMode(MAX30100_MODE_SPO2_HR);
-  sensor.setLedsCurrent(MAX30100_LED_CURR_50MA, MAX30100_LED_CURR_27_1MA);
+  
+sensor.setMode(MAX30100_MODE_SPO2_HR);
+
+  sensor.setLedsCurrent(MAX30100_LED_CURR_50MA, 
+MAX30100_LED_CURR_27_1MA);
+
   sensor.setLedsPulseWidth(MAX30100_SPC_PW_1600US_16BITS);
   sensor.setSamplingRate(MAX30100_SAMPRATE_100HZ);
   sensor.setHighresModeEnabled(true);
