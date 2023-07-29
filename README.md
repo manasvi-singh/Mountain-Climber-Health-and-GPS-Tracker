@@ -74,4 +74,8 @@ We would like to acknowledge the contributions of all the individuals and open-s
 
 ## Blynk Readings
 
-![Screenshot (405)](https://github.com/PrachiPandey19/Mountain-Climber-Health-and-GPS-Tracker/assets/118668465/0a020e0c-8028-4a68-8900-75c462a8d7ab)
+![blynk dashboard](https://github.com/manasvi-singh/Rock-Climber-Health-and-GPS-Tracker/assets/79778143/4d280463-ae05-4311-9dc2-0386945a2661)
+
+## Web DashBoard
+
+![web dashboard](https://github.com/manasvi-singh/Rock-Climber-Health-and-GPS-Tracker/assets/79778143/61793a27-29d3-40fe-9449-427f89bb15b3)
