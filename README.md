@@ -70,7 +70,7 @@ We would like to acknowledge the contributions of all the individuals and open-s
 
 ## Circuit Diagram
 
-![Screenshot (403)](https://github.com/PrachiPandey19/Mountain-Climber-Health-and-GPS-Tracker/assets/118668465/85835fa0-86b7-4cb1-89c8-636ef88a543c)
+![circuit diagram](https://github.com/manasvi-singh/Rock-Climber-Health-and-GPS-Tracker/assets/79778143/55f129d9-15a7-46ef-84df-2aaf5a300bee)
 
 ## Blynk Readings
 
